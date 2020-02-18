@@ -1,10 +1,30 @@
-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-   
-  ul {
-    list-style: none;
-  }
-   
+/*const apiKey = "66f60778c8c27a88da3fd31a2d55d2af";
+const name = 'lagos';
+const weatherButton = document.getElementById('submitBtn');
+
+function createEntry(data){
+  let tr = document.createElement('tr');
+  tr.innerHTML = `<td>${name}</td>`;
+  document.getElementById('weatherDisplay').appendChild(tr);
+}
+
+function fetchSubscribers() {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${apiKey}`, {
+      headers: {
+          'Content-type':'application/json'
+      },
+      method:'GET'
+  })
+      .then(res => res.json())
+      .then(res =>  {
+          if(res.status === "success"){
+            console.log(data);
+              res.data.forEach(createEntry);
+          } else{
+              alert("Check the details you entered and try again.");
+          }
+      })
+      .catch(err => console.log('Error message:', err));
+}
+
+weatherButton.addEventListener('click', fetchSubscribers);*/
