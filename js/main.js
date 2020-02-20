@@ -1,26 +1,27 @@
-(function($){
-  $(document).ready(function(){
-    $('#submitBtn').click(function(){
-      var city = $('#city').val();
+jQuery("#ms_form").submit(function(event) {
 
-      if(city != ''){
-          $.ajax({
-            url:'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&unit=metric' + 'APPID=66f60778c8c27a88da3fd31a2d55d2af',
-            type:'GET',
-            data: { action: 'getWeatherJson', 
-				    value:	city,      
-			            },
-            dataType:'json',
-            success:function(data){
-              console.log(data);
-            }
+  /* stop form from submitting normally */
+  event.preventDefault();
 
-          });
-      }else{
-        $('#error').html('Field cannot be empty');
+  /* get the action attribute from the form element */
+  var url = jQuery( this ).attr( 'action' );
+
+  /* Send the data using post */
+  jQuery.ajax({
+      type: 'POST',
+      url: url,
+      data: {
+          action: jQuery('#cp_action').val(),
+          cityId: jQuery('#cityId').val(), 
+      },
+      success: function (data, textStatus, XMLHttpRequest) {
+          alert(data);
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert(errorThrown);
       }
-
-    });
   });
 
 });
+
+
