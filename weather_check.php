@@ -19,7 +19,7 @@ function weather_form(){
 }
 
 function weather_display(){
-  return "<p>test</p>";
+  echo "<p>test</p>"; // don't use return, use echo instead and you'll see
   wp_die();
 }
 
