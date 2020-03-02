@@ -12,13 +12,13 @@ jQuery("#ms_form").submit(function(event) {
       url: url,
       data: {
           action: jQuery('#cp_action').val(),
-          cityId: jQuery('#cityId').val(), 
+          cityName: jQuery('#cityName').val(), 
       },
-      success: function (data, textStatus, XMLHttpRequest) {
-          alert(data);
+      success: function (data) {
+          console.log(data);
       },
-      error: function (XMLHttpRequest, textStatus, errorThrown) {
-          alert(errorThrown);
+      error: function (errorThrown) {
+          console.log(errorThrown);
       }
   });
 
