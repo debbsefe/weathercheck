@@ -82,4 +82,15 @@ function ms_add_scripts(){
 
 add_action('wp_enqueue_scripts', 'ms_add_scripts');
 add_action( 'wp_ajax_weather_form', 'weather_form' );
-add_action( 'wp_ajax_nopriv_weather_form', 'weather_form' );*/
+add_action( 'wp_ajax_nopriv_weather_form', 'weather_form' );
+$request = wp_remote_get('http://api.openweathermap.org/data/2.5/weather?', array(
+    'q' => 'cityId',
+    'appid' => '66f60778c8c27a88da3fd31a2d55d2af'
+  ));
+ try{
+   $json = json_decode($request['body']);
+ } catch (Exception $ex) {
+    $json = null;
+ }
+ return $json;
+  wp_die();*/
