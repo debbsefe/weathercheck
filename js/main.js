@@ -14,11 +14,12 @@ jQuery("#ms_form").submit(function(event) {
           action: jQuery('#cp_action').val(),
           cityName: jQuery('#cityName').val(), 
       },
+      dataType: 'json',
       success: function (data) {
-          console.log(data);
+        alert(data);
       },
       error: function (errorThrown) {
-          console.log(errorThrown);
+          alert(errorThrown);
       }
   });
 
