@@ -11,7 +11,7 @@ jQuery("#ms_form").submit(function(event) {
       type: 'POST',
       url: url,
       data: {
-          action: jQuery('#cp_action').val(),
+          action: jQuery('#cp_action').val(), // use here the ms_waether_check instead of this
           cityName: jQuery('#cityName').val(), 
       },
       dataType: 'json',
