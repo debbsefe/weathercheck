@@ -62,10 +62,10 @@ add_shortcode('weathersearch', 'wpb_weather_search');
 	  $icon = '<img src="http://openweathermap.org/img/w/' . $weather . '.png">';
  }
   $msg = '<h1>The temp is: '.$resp->main->temp .'K </h1>';
-  wp_send_json( $msg ); 
+  wp_send_json( $msg );  // why are you not using json_encode();
   
 wp_die();
   }
-  add_action( 'wp_ajax_ms_weather_display', 'ms_weather_display' );
-  add_action( 'wp_ajax_nopriv__ms_weather_display', 'ms_weather_display' );
+  add_action( 'wp_ajax_ms_weather_display', 'ms_weather_display' ); // you have define here ms_weather_display and into the js you are using another things
+  add_action( 'wp_ajax_nopriv_ms_weather_display', 'ms_weather_display' );
   
