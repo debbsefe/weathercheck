@@ -19,10 +19,12 @@ add_action('wp_enqueue_scripts', 'ms_add_scripts');
 function weather_form(){
   ?>  
     <form id="ms_form" action="" method="post"> 
-      <input type="hidden" name="ms_action" id="ms_action" value="ms_weather_display">
-      <input type="text" id="cityName" name="cityName" placeholder="Type a city name">
+      <input type="text" name="cityName" id="cityName" placeholder="Type a city name">
       <input type="submit" id="submitBtn">
+      <input type="hidden" name="ms_action" id="ms_action" value="ms_weather_display">
+      <span id="error-message"></span>
     </form>
+    <div id='outputWeather'></div>
 
   <?php
 }
@@ -39,20 +41,20 @@ function ms_weather_display(){
 	$city = ($_POST['cityName']);
 	$apiKey = '66f60778c8c27a88da3fd31a2d55d2af';
 	$url = 'https://api.openweathermap.org/data/2.5/weather?q=' .$city. '&appid=' .$apiKey;
-	$response = wp_remote_get( $url  );
+	$response = wp_remote_get($url);
 	if( is_array($response) ) {
-	  $header = $response['headers']; // array of http header lines
-	  $body = $response['body']; // use the content
+	  $header = $response['headers']; 
+	  $body = $response['body']; 
 	  $resp = json_decode($body);
 	  $weather = $resp->weather[0]->icon;
-	  $icon = '<img src="http://openweathermap.org/img/w/' . $weather . '.png">';
+    $icon = '<img src="http://openweathermap.org/img/w/' . $weather . '.png">';
+    $msg = $resp->main->temp;
  }
-  $msg = '<h1>The temp is: '.$resp->main->temp .'K </h1>';
-  wp_send_json( $msg );  
+  wp_send_json_success( $msg );  
   
 wp_die();
 }
 
-  add_action( 'wp_ajax_ms_weather_display', 'ms_weather_display' ); 
-  add_action( 'wp_ajax_nopriv_ms_weather_display', 'ms_weather_display' );
-  
+add_action( 'wp_ajax_ms_weather_display', 'ms_weather_display' ); 
+add_action( 'wp_ajax_nopriv_ms_weather_display', 'ms_weather_display' );
+
