@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name:  WeatherCheck
-Description: Custom search bar
+Description: Custom search bar to retrive data from an external URL
 Author: Mamus Eferha
 Version: 1.0
 */
@@ -38,21 +38,16 @@ function wpb_weather_search(){
 add_shortcode('weathersearch', 'wpb_weather_search');
 
 function ms_weather_display(){
-	$city = ($_POST['cityName']);
-	$apiKey = '66f60778c8c27a88da3fd31a2d55d2af';
+	$city = ($_POST['city']);
+	$apiKey = 'YOUR API KEY';
 	$url = 'https://api.openweathermap.org/data/2.5/weather?q=' .$city. '&appid=' .$apiKey;
-	$response = wp_remote_get($url);
-	if( is_array($response) ) {
-	  $header = $response['headers']; 
-	  $body = $response['body']; 
-	  $resp = json_decode($body);
-	  $weather = $resp->weather[0]->icon;
-    $icon = '<img src="http://openweathermap.org/img/w/' . $weather . '.png">';
-    $msg = $resp->main->temp;
- }
-  wp_send_json_success( $msg );  
-  
-wp_die();
+  $response = wp_remote_get($url);
+  $body = wp_remote_retrieve_body( $response );
+  $resp = json_decode($body);
+  $weather = $resp->weather[0]->icon;
+  $msg = '<h1>The temp in Kelvin is: ' .$resp->main->temp. '</h1>';
+  $icon = '<img src="http://openweathermap.org/img/w/' . $weather . '.png">';
+  wp_send_json_success( $msg);  
 }
 
 add_action( 'wp_ajax_ms_weather_display', 'ms_weather_display' ); 
